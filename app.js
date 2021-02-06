@@ -21,14 +21,14 @@ const path         = require('path');
 
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
-// mongoose
-//   .connect('mongodb://localhost/project-management-server', {useNewUrlParser: true})
-//   .then(x => {
-//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-//   })
-//   .catch(err => {
-//     console.error('Error connecting to mongo', err)
-//   });
+mongoose
+  .connect('mongodb://localhost/project-management-server', {useNewUrlParser: true})
+  .then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -65,6 +65,10 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const projects = require('./routes/project-routes')
+app.use('/api', projects);
+
 
 
 module.exports = app;
